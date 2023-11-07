@@ -1,3 +1,7 @@
+# Dados Relacionados à Sprint 2
+
+O Programa aqui tem as questões da Sprint 2 funcionando.
+
 # ProjetoLocadora
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
