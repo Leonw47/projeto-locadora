@@ -9,9 +9,14 @@ import {first} from "rxjs";
   templateUrl: './excluir-locacao.component.html',
   styleUrls: ['./excluir-locacao.component.scss']
 })
+// ... (seu código existente)
+
 export class ExcluirLocacaoComponent implements OnInit {
 
   public locacao: Locacao;
+  public deletandoLocacao = false;
+  public exclusaoSucesso = false;
+  public exclusaoErro = false;
 
   constructor(
     public dialogRef: MatDialogRef<ExcluirLocacaoComponent>,
@@ -24,13 +29,22 @@ export class ExcluirLocacaoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  excluirLocacao() {
-    console.log(this.locacao)
-    this.service.deletar(this.locacao._id).pipe(first()).subscribe()
-    this.dialogRef.close(true);
+  excluirLocacao(): void {
+    this.deletandoLocacao = true;
+
+    this.service.deletar(this.locacao._id).pipe(first()).subscribe(
+      () => {
+        console.log('Locação excluída com sucesso.');
+        this.exclusaoSucesso = true;
+        this.dialogRef.close(true);
+      },
+      error => {
+        console.error('Erro ao excluir locação:', error);
+        this.exclusaoErro = true;
+      });
   }
 
   cancelar() {
-    this.dialogRef.close(true);
+    this.dialogRef.close(false);
   }
 }

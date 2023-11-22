@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Location} from "@angular/common";
@@ -22,6 +22,7 @@ export class CriarLocacaoComponent implements OnInit {
   alugados: Item[] = [];
   dataDevolucaoPrevista: any;
   dataDevolucaoEfetiva: any;
+  locacaoService: any;
 
   constructor(
     private router: Router,
@@ -54,6 +55,8 @@ export class CriarLocacaoComponent implements OnInit {
     this.itemService.list().subscribe(alugados =>{
       this.alugados = alugados;
     });
+
+    //this.calcularSomaLocacoes();
   }
 
   realizarLocacao(): void {
@@ -94,6 +97,36 @@ export class CriarLocacaoComponent implements OnInit {
 
     return dataDevolucaoPrevista > dataLocacao ? null : { dataDevolucaoPrevistaInvalida: true };
   }
+
+  /*getAlugadosControls() {
+    const alugados = this.form.get('alugados') as FormArray | null;
+    return alugados ? alugados.controls : [];
+  }
+    // Método para calcular a soma do valor de locações ativas do cliente selecionado
+    calcularSomaLocacoes(): void {
+      // Obtém o cliente selecionado do formulário
+      const clienteSelecionado = this.form.get('clientes')?.value;
+
+      // Verifica se há um cliente selecionado
+      if (clienteSelecionado) {
+        this.locacaoService.getLocacoesAtivasPorCliente(clienteSelecionado).subscribe((locacoesAtivas: any[]) => {
+          const dataLocacao = this.form.get('dataLocacao')?.value;
+
+          // Filtra as locações ativas com dataDevolucaoPrevista menor que dataLocacao
+          const locacoesComDataInvalida = locacoesAtivas.filter((locacao) => {
+            return locacao.dataDevolucaoPrevista < dataLocacao;
+          });
+
+          // Calcula a soma do valor das locações
+          const soma = locacoesComDataInvalida.reduce((total, locacao) => {
+            return total + (locacao.valorCobrado || 0);
+          }, 0);
+
+          console.log('Soma das locações do cliente com dataDevolucaoPrevista menor que dataLocacao:', soma);
+        });
+      }
+    }
+*/
 
 }
 

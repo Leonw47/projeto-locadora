@@ -67,6 +67,7 @@ import { LerLocacaoComponent } from './components/locacao/ler-locacao/ler-locaca
 import { RealizarDevolucaoComponent } from './components/locacao/realizar-devolucao/realizar-devolucao.component';
 import { DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
+import { EditarLocacaoComponent } from './components/locacao/editar-locacao/editar-locacao.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { MatChipsModule } from '@angular/material/chips';
     CrudLocacaoComponent,
     CriarLocacaoComponent,
     LerLocacaoComponent,
-    RealizarDevolucaoComponent
+    RealizarDevolucaoComponent,
+    EditarLocacaoComponent
   ],
   imports: [
     BrowserModule,

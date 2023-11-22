@@ -1,23 +1,23 @@
 <div class="container-principal">
   <mat-card class="card mat-elevation-z4">
-    <mat-card-title>Realizar Nova Locação</mat-card-title>
-    <form [formGroup]="form" *ngIf="form">
+    <mat-card-title>Editar Locação</mat-card-title>
+    <form [formGroup]="form">
 
       <mat-form-field appearance="fill">
         <mat-label>Data de Locacao</mat-label>
         <input matInput [matDatepicker]="pickerLocacao" formControlName="dataLocacao">
         <mat-datepicker-toggle matSuffix [for]="pickerLocacao"></mat-datepicker-toggle>
         <mat-datepicker #pickerLocacao></mat-datepicker>
+        <mat-error *ngIf="form.get('dataLocacao')?.hasError('required')">Campo obrigatório.</mat-error>
       </mat-form-field>
-      <mat-error *ngIf="form.get('dataLocacao')?.hasError('required')">Campo obrigatório.</mat-error>
 
       <mat-form-field appearance="fill">
         <mat-label>Data de Devolução</mat-label>
         <input matInput [matDatepicker]="pickerDevolucaoPrevista" formControlName="dataDevolucaoPrevista">
         <mat-datepicker-toggle matSuffix [for]="pickerDevolucaoPrevista"></mat-datepicker-toggle>
         <mat-datepicker #pickerDevolucaoPrevista></mat-datepicker>
+        <mat-error *ngIf="form.get('dataDevolucaoPrevista')?.hasError('required')">Campo obrigatório.</mat-error>
       </mat-form-field>
-      <mat-error *ngIf="form.get('dataDevolucaoPrevista')?.hasError('required')">Campo obrigatório.</mat-error>
 
       <mat-form-field>
         <mat-select formControlName="clientes" name="clientes" placeholder="Cliente">
@@ -26,15 +26,13 @@
         <mat-error *ngIf="form.get('clientes')?.hasError('required')">Selecione um cliente.</mat-error>
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-select multiple formControlName="alugados" placeholder="Alugados" name="alugados" id="alugados">
-          <mat-option *ngFor="let alugado of alugados" [value]="alugado" >{{alugado.titulo.nome}}</mat-option>
+      <mat-form-field *ngIf="form.get('alugados')">
+        <mat-select multiple formControlName="alugados" placeholder="Alugados" name="alugados" id="alugados" (change)="updateAlugados()">
+          <mat-option *ngFor="let alugado of getAlugadosControls(); let i = index" [value]="alugado.value">
+            {{ alugado.value.titulo.nome }}
+          </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('alugados')?.hasError('required')">Selecione pelo menos um item alugado.</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <input matInput placeholder="Multa Pendente" type="number" formControlName="multaCobrada" required>
       </mat-form-field>
 
       <mat-form-field>
@@ -42,9 +40,7 @@
         <mat-error *ngIf="form.get('valorCobrado')?.hasError('required')">Campo obrigatório.</mat-error>
       </mat-form-field>
 
-      <!-- Adiciona as mensagens de erro para os validadores personalizados -->
-
-      <button class="salvar" mat-raised-button (click)="realizarLocacao()" [disabled]="form.invalid || form.pristine">
+      <button class="salvar" mat-raised-button (click)="editarLocacao()" [disabled]="form.invalid || form.pristine">
         Salvar
       </button>
 

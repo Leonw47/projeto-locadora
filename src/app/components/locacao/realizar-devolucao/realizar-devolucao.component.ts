@@ -160,30 +160,22 @@ export class RealizarDevolucaoComponent implements OnInit {
       const dataDevolucaoEfetiva = this.form.get('dataDevolucaoEfetiva')?.value;
       const multaCobrada = this.form.get('multaCobrada')?.value;
 
-      console.log('ID da Locação Ativa do Formulário:', locacaoAtivaControl.value);
-
-      // Imprime no console os IDs de todas as locações ativas
-      console.log('IDs das Locações Ativas Disponíveis:', this.locacoesAtivas.map(l => l._id));
-
       // Obter informações da locação ativa do formulário
       const locacaoAtiva = this.locacoesAtivas.find(l => l._id === locacaoAtivaControl.value?._id);
-
-      console.log('Locação Ativa Encontrada:', locacaoAtiva);
 
       if (locacaoAtiva) {
         // Verifique se o ID da locação ativa está presente
         if (locacaoAtiva._id) {
           this.service.getClienteById(idCliente).subscribe(cliente => {
             const locacao: Locacao = {
-              _id: locacaoAtiva._id,  // Use o ID existente para indicar que é uma atualização
+              _id: locacaoAtiva._id,
               dataLocacao: locacaoAtiva.dataLocacao,
               dataDevolucaoPrevista: locacaoAtiva.dataDevolucaoPrevista,
-              alugados: [],  // ou outra lógica para itens alugados
+              alugados: [],
               valorCobrado: locacaoAtiva.valorCobrado,
-              clientes: locacaoAtiva.clientes,  // Certifique-se de que está retornando um objeto cliente válido
+              clientes: locacaoAtiva.clientes,
               dataDevolucaoEfetiva: dataDevolucaoEfetiva,
               multaCobrada: multaCobrada,
-              // Adicione outros campos conforme necessário
             };
 
             this.service.editar(locacao)
