@@ -5,7 +5,7 @@
 
       <mat-form-field>
         <mat-label>Cliente</mat-label>
-        <mat-select formControlName="clientes" name="clientes" placeholder="Selecione o Cliente">
+        <mat-select formControlName="clientes" name="clientes" placeholder="Selecione o Cliente" (selectionChange)="onClienteChange()">
           <mat-option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nome }}</mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('clientes')?.hasError('required')">Selecione um cliente.</mat-error>
@@ -21,6 +21,14 @@
         </mat-select>
         <mat-error *ngIf="form.get('locacaoAtiva')?.hasError('required')">Selecione uma locação ativa.</mat-error>
       </mat-form-field>
+
+<mat-select formControlName="locacaoAtiva" name="locacaoAtiva" placeholder="Selecione a Locação">
+   <mat-option *ngFor="let locacao of locacoesAtivas" [value]="locacao._id">
+      {{ locacao.dataLocacao | date: 'dd/MM/yyyy' }}
+   </mat-option>
+</mat-select>
+
+
 
       <!-- Detalhes da locação ativa -->
       <mat-form-field appearance="fill" [hidden]="!form.get('locacaoAtiva')?.value">

@@ -101,17 +101,8 @@ export class RealizarDevolucaoComponent implements OnInit {
     console.log('Método carregarLocacoesAtivas chamado para o cliente:', clienteId);
 
     this.service.getLocacoesAtivasPorCliente(clienteId).subscribe(locacoes => {
-      console.log('Locações ativas carregadas:', locacoes);
-
       this.locacoesAtivas = locacoes;
-
-      // Limpar detalhes da locação ao carregar novas locações
-      this.form.patchValue({
-        locacaoAtiva: null,
-        dataDevolucaoPrevista: null,
-        alugados: null,
-        valorCobrado: null
-      });
+      this.resetarFormulario();
     });
   }
 
@@ -122,7 +113,8 @@ export class RealizarDevolucaoComponent implements OnInit {
       console.log('Locações Ativas:', this.locacoesAtivas);
       console.log('Valor de locacaoAtivaControl.value:', locacaoAtivaControl.value);
 
-      const locacao = this.locacoesAtivas.find(l => l._id == locacaoAtivaControl.value);
+      const locacaoId = locacaoAtivaControl.value?._id;
+      const locacao = this.locacoesAtivas.find(l => l._id === locacaoId);
 
       if (locacao) {
         this.form.patchValue({
@@ -147,8 +139,6 @@ export class RealizarDevolucaoComponent implements OnInit {
       this.resetarFormulario();
     }
   }
-
-
 
   resetarFormulario() {
     this.form.patchValue({
@@ -176,27 +166,32 @@ export class RealizarDevolucaoComponent implements OnInit {
       console.log('IDs das Locações Ativas Disponíveis:', this.locacoesAtivas.map(l => l._id));
 
       // Obter informações da locação ativa do formulário
-      const locacaoAtiva = this.locacoesAtivas.find(l => l._id === locacaoAtivaControl.value);
+      const locacaoAtiva = this.locacoesAtivas.find(l => l._id === locacaoAtivaControl.value?._id);
 
       console.log('Locação Ativa Encontrada:', locacaoAtiva);
 
       if (locacaoAtiva) {
-        this.service.getClienteById(idCliente).subscribe(cliente => {
-          const locacao: Locacao = {
-            _id: '',  // Se for um novo registro, você pode deixar o ID em branco
-            dataLocacao: locacaoAtiva.dataLocacao,
-            dataDevolucaoPrevista: locacaoAtiva.dataDevolucaoPrevista,
-            alugados: [],  // ou outra lógica para itens alugados
-            valorCobrado: locacaoAtiva.valorCobrado,
-            clientes: locacaoAtiva.clientes,  // Certifique-se de que está retornando um objeto cliente válido
-            dataDevolucaoEfetiva: dataDevolucaoEfetiva,
-            multaCobrada: multaCobrada,
-            // Adicione outros campos conforme necessário
-          };
+        // Verifique se o ID da locação ativa está presente
+        if (locacaoAtiva._id) {
+          this.service.getClienteById(idCliente).subscribe(cliente => {
+            const locacao: Locacao = {
+              _id: locacaoAtiva._id,  // Use o ID existente para indicar que é uma atualização
+              dataLocacao: locacaoAtiva.dataLocacao,
+              dataDevolucaoPrevista: locacaoAtiva.dataDevolucaoPrevista,
+              alugados: [],  // ou outra lógica para itens alugados
+              valorCobrado: locacaoAtiva.valorCobrado,
+              clientes: locacaoAtiva.clientes,  // Certifique-se de que está retornando um objeto cliente válido
+              dataDevolucaoEfetiva: dataDevolucaoEfetiva,
+              multaCobrada: multaCobrada,
+              // Adicione outros campos conforme necessário
+            };
 
-          this.service.save(locacao)
-            .subscribe(result => this.sucesso(), error => this.erro());
-        });
+            this.service.editar(locacao)
+              .subscribe(result => this.sucesso(), error => this.erro());
+          });
+        } else {
+          console.error('ID da locação ativa não encontrado.');
+        }
       } else {
         console.error('Locação ativa não encontrada.');
       }
@@ -204,7 +199,6 @@ export class RealizarDevolucaoComponent implements OnInit {
       console.error('Nenhum cliente ou locação ativa selecionada.');
     }
   }
-
 
   cancelar(): void {
     this.location.back();
@@ -246,5 +240,12 @@ export class RealizarDevolucaoComponent implements OnInit {
     const formValid = this.form.valid;
     const locacaoAtiva = this.form.get('locacaoAtiva')?.value;
     return formValid && locacaoAtiva !== null && locacaoAtiva.alugados.length > 0;
+  }
+
+  onClienteChange() {
+    const clienteId = this.form.get('clientes')?.value;
+    if (clienteId) {
+      this.carregarLocacoesAtivas(clienteId);
+    }
   }
 }

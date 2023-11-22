@@ -23,6 +23,7 @@ export class LerLocacaoComponent implements OnInit {
     'valorCobrado',
     'dataDevolucaoEfetiva',
     'multaCobrada',
+    'acoes',
   ];
 
   constructor(
@@ -45,9 +46,7 @@ export class LerLocacaoComponent implements OnInit {
   }
 
   editarLocacao(locacao: Locacao) {
-    this.router.navigate(['editarLocacao', locacao._id], {
-      relativeTo: this.route,
-    });
+    this.router.navigate(['editarLocacao', locacao._id], {relativeTo: this.route,});
   }
 
   excluirLocacao(row: Locacao): void {

@@ -45,7 +45,7 @@ export class LocacaoService {
 
   getLocacoesAtivasPorCliente(clienteId: string, dataAtual?: Date) {
     const params = dataAtual ? { params: { dataAtual: new Date(dataAtual).toISOString() } } : {};
-    return this.httpClient.get<Locacao[]>(`${this.API}/ativasPorCliente/${clienteId}`, params).pipe(first());
+    return this.httpClient.get<Locacao[]>(`${this.API}/clientes/${clienteId}`, params).pipe(first());
   }
 
   getClienteById(clienteId: string): Observable<Cliente> {
