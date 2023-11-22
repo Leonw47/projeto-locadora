@@ -61,7 +61,12 @@ import { LerSocioComponent } from './components/socio/ler-socio/ler-socio.compon
 import { ExcluirSocioComponent } from './components/socio/excluir-socio/excluir-socio.component';
 import { CrudClienteComponent } from './views/crud-cliente/crud-cliente.component';
 import { CrudSocioComponent } from './views/crud-socio/crud-socio.component';
-
+import { CrudLocacaoComponent } from './views/crud-locacao/crud-locacao.component';
+import { CriarLocacaoComponent } from './components/locacao/criar-locacao/criar-locacao.component';
+import { LerLocacaoComponent } from './components/locacao/ler-locacao/ler-locacao.component';
+import { RealizarDevolucaoComponent } from './components/locacao/realizar-devolucao/realizar-devolucao.component';
+import { DatePipe } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -103,7 +108,11 @@ import { CrudSocioComponent } from './views/crud-socio/crud-socio.component';
     LerSocioComponent,
     ExcluirSocioComponent,
     CrudClienteComponent,
-    CrudSocioComponent
+    CrudSocioComponent,
+    CrudLocacaoComponent,
+    CriarLocacaoComponent,
+    LerLocacaoComponent,
+    RealizarDevolucaoComponent
   ],
   imports: [
     BrowserModule,
@@ -128,9 +137,12 @@ import { CrudSocioComponent } from './views/crud-socio/crud-socio.component';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

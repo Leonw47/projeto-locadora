@@ -1,0 +1,63 @@
+<div class="container-principal">
+  <mat-card class="card mat-elevation-z4">
+    <mat-card-title>Realizar Devolução</mat-card-title>
+    <form [formGroup]="form" *ngIf="form">
+
+      <mat-form-field>
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="clientes" name="clientes" placeholder="Selecione o Cliente">
+          <mat-option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nome }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('clientes')?.hasError('required')">Selecione um cliente.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Data de Locação</mat-label>
+        <mat-select formControlName="locacaoAtiva" name="locacaoAtiva"
+                    placeholder="Selecione a Locação" (ngModelChange)="onLocacaoAtivaChange()">
+          <mat-option *ngFor="let locacao of locacoesAtivas" [value]="locacao">
+            {{ locacao.dataLocacao | date: 'dd/MM/yyyy' }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('locacaoAtiva')?.hasError('required')">Selecione uma locação ativa.</mat-error>
+      </mat-form-field>
+
+      <!-- Detalhes da locação ativa -->
+      <mat-form-field appearance="fill" [hidden]="!form.get('locacaoAtiva')?.value">
+        <mat-label>Data de Devolução Prevista</mat-label>
+        <input matInput [value]="form.get('locacaoAtiva')?.value ? formatarData(form.get('locacaoAtiva')?.value.dataDevolucaoPrevista) : ''" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Alugados</mat-label>
+        <input matInput [value]="getAlugadosFormatted()" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Valor Cobrado</mat-label>
+        <input matInput [value]="form.get('locacaoAtiva')?.value?.valorCobrado || ''" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Data de Devolução Efetiva</mat-label>
+        <input matInput [matDatepicker]="pickerDevolucaoEfetiva" formControlName="dataDevolucaoEfetiva" required>
+        <mat-datepicker-toggle matSuffix [for]="pickerDevolucaoEfetiva"></mat-datepicker-toggle>
+        <mat-datepicker #pickerDevolucaoEfetiva></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="Multa Cobrada" type="number" formControlName="multaCobrada" required>
+      </mat-form-field>
+
+
+      <button class="salvar" mat-raised-button (click)="devolver()">
+        Realizar Devolução
+      </button>
+
+      <button class="cancelar" mat-raised-button (click)="cancelar()">
+        Cancelar
+      </button>
+
+    </form>
+  </mat-card>
+</div>
