@@ -42,6 +42,7 @@ import { ExcluirLocacaoComponent } from './components/locacao/excluir-locacao/ex
 import { LocacaoResolver } from './components/locacao/guards/locacao.resolver';
 import { RealizarDevolucaoComponent } from './components/locacao/realizar-devolucao/realizar-devolucao.component';
 import { EditarLocacaoComponent } from './components/locacao/editar-locacao/editar-locacao.component';
+import { BuscarTituloComponent } from './components/titulo/buscar-titulo/buscar-titulo.component';
 
 const routes: Routes = [
   {
@@ -133,8 +134,13 @@ const routes: Routes = [
   },
 
   {
-    path: 'diretor/excluirTitulo',
+    path: 'titulo/excluirTitulo',
     component: ExcluirTituloComponent
+  },
+
+  {
+    path: 'titulo/buscarTitulo',
+    component: BuscarTituloComponent
   },
 
   {

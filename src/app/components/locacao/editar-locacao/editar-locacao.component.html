@@ -28,8 +28,8 @@
 
       <mat-form-field *ngIf="form.get('alugados')">
         <mat-select multiple formControlName="alugados" placeholder="Alugados" name="alugados" id="alugados" (change)="updateAlugados()">
-          <mat-option *ngFor="let alugado of getAlugadosControls(); let i = index" [value]="alugado.value">
-            {{ alugado.value.titulo.nome }}
+          <mat-option *ngFor="let alugado of alugados; let i = index" [value]="alugado">
+            {{ alugado.titulo.nome }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('alugados')?.hasError('required')">Selecione pelo menos um item alugado.</mat-error>

@@ -68,6 +68,7 @@ import { RealizarDevolucaoComponent } from './components/locacao/realizar-devolu
 import { DatePipe } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { EditarLocacaoComponent } from './components/locacao/editar-locacao/editar-locacao.component';
+import { BuscarTituloComponent } from './components/titulo/buscar-titulo/buscar-titulo.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { EditarLocacaoComponent } from './components/locacao/editar-locacao/edit
     CriarLocacaoComponent,
     LerLocacaoComponent,
     RealizarDevolucaoComponent,
-    EditarLocacaoComponent
+    EditarLocacaoComponent,
+    BuscarTituloComponent
   ],
   imports: [
     BrowserModule,
