@@ -1,1 +1,24 @@
-<p>buscar-titulo works!</p>
+<div class="container">
+  <mat-card class="buscar-titulo mat-elevation-z4">
+    <mat-card-title class="title">Buscar Título</mat-card-title>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" name="searchTerm" (input)="search()">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Adicione a verificação para exibir o loading -->
+  <div *ngIf="loading" class="loading-overlay">
+    <!-- Adicione aqui a sua animação de carregamento -->
+    <div class="loader"></div>
+  </div>
+
+  <div class="titulos-container">
+    <div *ngFor="let titulo of titulos" class="titulo-card">
+      {{ titulo.nome }} - {{ titulo.ano }} - {{ titulo.sinopse }}
+    </div>
+  </div>
+</div>

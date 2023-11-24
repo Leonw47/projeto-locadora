@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {first, tap} from "rxjs";
 import {Titulo} from "../models/titulo";
 
@@ -39,4 +39,10 @@ export class TituloService {
       }
     } );
   }
+
+  searchTitulos(searchTerm: string) {
+    const params = new HttpParams().set('q', searchTerm);
+    return this.httpClient.get<Titulo[]>(`${this.API}/search`, { params });
+  }
+
 }

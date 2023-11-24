@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Location} from "@angular/common";
@@ -56,7 +56,6 @@ export class CriarLocacaoComponent implements OnInit {
       this.alugados = alugados;
     });
 
-    //this.calcularSomaLocacoes();
   }
 
   realizarLocacao(): void {
