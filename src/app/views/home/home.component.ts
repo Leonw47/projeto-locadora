@@ -12,8 +12,7 @@ export class HomeComponent implements OnInit {
     private router: Router
     ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void{}
 
   redirectToSearch(): void {
     this.router.navigate(['/titulo/buscarTitulo']);

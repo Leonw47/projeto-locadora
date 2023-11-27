@@ -142,7 +142,7 @@ import { BuscarTituloComponent } from './components/titulo/buscar-titulo/buscar-
     MatSnackBarModule,
     MatOptionModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   providers: [
     DatePipe

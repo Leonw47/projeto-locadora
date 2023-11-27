@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; // Ajuste conforme necessário
+  z-index: 1000; /* Ajuste conforme necessário */
 }
 
 .loader {
@@ -33,7 +33,6 @@
   100% { transform: rotate(360deg); }
 }
 
-
 .container {
   display: flex;
   flex-direction: column;
@@ -42,26 +41,53 @@
 
 .mat-card-content {
   width: 100%;
+  display: flex;
+  justify-content: center; /* Centraliza a barra de pesquisa */
 }
 
 .title {
   width: 100%;
 }
 
-.search-form {
-  width: 100%;
+.mat-form-field-container {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px; // Adicione margem inferior para espaçamento
+  align-items: center;
+  max-width: 800px; /* Ajuste conforme necessário */
+  margin: 0 auto; /* Centraliza o contêiner */
+  margin-bottom: 10px; /* Adiciona um espaçamento inferior */
+}
+
+.mat-form-field-container mat-form-field {
+  flex: 1; /* Ocupa todo o espaço disponível */
+  margin-right: 10px; /* Adiciona margem à direita para separar do botão */
+}
+
+.mat-form-field-container button {
+  height: 100%; /* Garante que o botão tenha a mesma altura que o campo de pesquisa */
 }
 
 .titulos-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; // Altere conforme necessário
+  margin-top: 10px;
 }
 
 .titulo-card {
-  flex: 0 0 300px;
-  margin: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.titulo-card span {
+  margin-right: 5px;
+}
+
+.full-width-table table {
+  border-spacing: 0 8px;
+}
+
+.full-width-table th {
+  padding: 10px;
+}
+
+.full-width-table td {
+  padding: 8px;
 }
