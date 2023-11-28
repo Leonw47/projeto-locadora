@@ -7,7 +7,7 @@
           <mat-form-field>
             <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" name="searchTerm" (input)="onSearchInput()">
           </mat-form-field>
-          <button mat-button type="button" (click)="search()">Pesquisar</button>
+          <button mat-button class ="pesquisar" type="button" (click)="search()">Pesquisar</button>
         </div>
       </form>
     </mat-card-content>
@@ -85,9 +85,9 @@
     </div>
   </div>
 
-  <div *ngIf="showErrorMessage && !loading && titulos.length === 0" class="titulos-container">
+  <div *ngIf="showErrorMessage && !loading" class="titulos-container">
     <div class="titulo-card">
-      <span class="titulo-info">Oops: Título não encontrado :/</span>
+      <span class="titulo-info">Ops: Título não encontrado :/</span>
     </div>
   </div>
 </div>

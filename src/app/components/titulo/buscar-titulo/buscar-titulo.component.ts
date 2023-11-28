@@ -30,7 +30,6 @@ export class BuscarTituloComponent implements OnInit {
   }
 
   onSearchInput(): void {
-    // Adicione aqui qualquer lógica desejada ao digitar no campo de pesquisa
   }
 
   search(): void {
@@ -48,17 +47,21 @@ export class BuscarTituloComponent implements OnInit {
     // Chama o serviço para buscar os títulos
     this.tituloService.searchTitulos(this.searchTerm).subscribe(
       titulos => {
-        this.titulos = titulos;
-        this.setLoadingTimeout(); // Configura o temporizador para ocultar o loading
-
-        // Se nenhum título for encontrado, exibe a mensagem de erro
-        if (titulos.length === 0) {
+        if (titulos && titulos.length > 0) {
+          // Se títulos são encontrados, exibe na tabela
+          this.titulos = titulos;
+        } else {
+          // Se nenhum título é encontrado, exibe a mensagem de erro
           this.showErrorMessage = true;
         }
       },
       error => {
         console.error('Erro ao buscar títulos', error);
         this.loading = false; // Oculta o loading em caso de erro
+      },
+      () => {
+        // O trecho dentro desta função é executado quando a observação é concluída
+        this.setLoadingTimeout(); // Configura o temporizador para ocultar o loading
       }
     );
   }
