@@ -5,7 +5,7 @@
       <form>
         <div class="mat-form-field-container">
           <mat-form-field>
-            <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" name="searchTerm" (input)="onSearchInput()">
+            <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" name="searchTerm" (input)="onSearchInput()" (keyup.enter)="search()">
           </mat-form-field>
           <button mat-button class ="pesquisar" type="button" (click)="search()">Pesquisar</button>
         </div>
